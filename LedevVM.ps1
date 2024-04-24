@@ -6,8 +6,17 @@ foreach($sec in $sessions){
    
    
     $result += Invoke-Command -Session $sec -ScriptBlock {
-             
-        xpfinfo -i
+        
+        Get-WmiObject -Class Win32_OperatingSystem | select Caption 
+        xpinfo -i
+        
+        $Letter = Get-Volume | select -ExpandProperty DriveLetter
+        foreach($let in $Letter){
+
+            $dsk =  Get-Volume | where DriveLetter -eq $let | Get-Partition | Get-Disk
+            Write-Output "Disk: $($dsk.Number):$let"
+        }
+
         Write-Output "`r`n"
     } 
    
@@ -15,5 +24,5 @@ foreach($sec in $sessions){
   
 }
 
-$result| Out-File -FilePath ".\ldev.txt" -Force
+$result| Out-File -FilePath ".\ldevVM.txt" -Force
 Get-PSSession | Disconnect-PSSession | Remove-PSSession
