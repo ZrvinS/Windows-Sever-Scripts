@@ -1,3 +1,13 @@
+<#
+Contact(if any help required)
+Author :- Amit Kumar Sunar
+Email :- amit.sunar@nttdata.com
+
+This Script will check if the mention KB is installed on the list of server saved on the servers.txt file
+
+#>
+
+
 $servers = Get-Content(".\serverlist.txt");
 $kb = "KB5035849";
  
