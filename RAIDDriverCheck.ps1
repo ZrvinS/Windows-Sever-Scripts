@@ -2,8 +2,8 @@ $serverconnectTest =  Get-Content(".\servers.txt") | Test-NetConnection | Where-
 $result = @()
 $result = foreach($server in $serverconnectTest.ComputerName){
 
-Get-WmiObject -Class Win32_PnPSignedDriver -ComputerName $server | ?{$_.FriendlyName -match "H*LOGICAL*"} |select __SERVER, FriendlyName, Description
-
+    $out = Get-WmiObject -Class Win32_PnPSignedDriver -ComputerName $server | ?{$_.FriendlyName -like "HP*LOGICAL*SCSI*"} |select __SERVER, FriendlyName, Description
+    $out | Group-Object __SERVER
 }
 
 $result | Out-File ".\RAID.txt" -Force 
