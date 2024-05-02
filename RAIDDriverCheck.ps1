@@ -1,3 +1,12 @@
+<#
+Contact(if any help required)
+Author :- Amit Kumar Sunar
+Email :- amit.sunar@nttdata.com
+
+This Script will check if number or HP Logical DISK on the list of server saved on the servers.txt file
+Which will help you determin if the RAID is configured properly or not
+#>
+
 $serverconnectTest =  Get-Content(".\servers.txt") | Test-NetConnection | Where-Object {$_.PingSucceeded -eq $true}
 $result = @()
 $result = foreach($server in $serverconnectTest.ComputerName){
