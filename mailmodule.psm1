@@ -7,7 +7,7 @@
         [switch]
         $message,
         [string]
-        $bodmsg = "Test mail"
+        $Messagetosend = "Test mail"
     )
     
     begin {
@@ -16,7 +16,7 @@
             From = 'automationnttdata@outlook.com'
             To = 'automationnttdata@outlook.com'
             Subject = 'Service Monitoring'
-            Body = $bodmsg
+            Body = $Messagetosend
             DeliveryNotificationOption = 'OnSuccess', 'OnFailure'
             SmtpServer = 'smtp-mail.outlook.com'
             Port = 587
