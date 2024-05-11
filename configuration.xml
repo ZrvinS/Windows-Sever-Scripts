@@ -1,0 +1,12 @@
+<global>
+  <gvariable>
+    <server>How is server</server>
+  </gvariable> 
+
+  <functions>
+    <function>serverpull</function>
+  </functions>
+    <services>
+        bits
+    </services>
+</global>
