@@ -1,6 +1,6 @@
 <configuration>
     <GlobalVariables>
-        <protocols> 
+        <protocols > 
             Multi-Protocol Unified Hello,                                                                                                                                           
             PCT 1.0,                                                                                                                                                                
             SSL 2.0,                                                                                                                                                                 
@@ -11,7 +11,13 @@
         </protocols>
         <server>server</server>
         <client>client</client>
+        <Change>ChangeNumber</Change>
     </GlobalVariables>
+
+<server>
+<tag>Application</tag>
     <function>protocolChecker,consolemessage</function>
     <checkfor>server, client</checkfor>
+</server>
+
 </configuration>
