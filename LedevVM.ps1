@@ -4,7 +4,7 @@ Author :- Amit Kumar Sunar
 Email :- amit.sunar@nttdata.com
 
 For VIRTUAL Servers
-This Script will retrieve LDEV ID  and Drive Letter With Drive Number dtails for the list of server saved on the servers.txt file
+This Script will retrieve LDEV ID  and Drive Letter With Drive Number details for the list of server saved on the servers.txt file
 The script run on a persistance PSsession and clears the session when done.
 #>
 
@@ -12,7 +12,7 @@ $reachableServers = Get-Content("./servers.txt") | Test-NetConnection | ? { $_.P
 $sessions = $reachableServers | New-PSSession  
 
 $result = @()
-foreach($sec in $sessions){
+foreach ($sec in $sessions) {
    
    
     $result += Invoke-Command -Session $sec -ScriptBlock {
@@ -21,9 +21,9 @@ foreach($sec in $sessions){
         xpinfo -i
         
         $Letter = Get-Volume | select -ExpandProperty DriveLetter
-        foreach($let in $Letter){
+        foreach ($let in $Letter) {
 
-            $dsk =  Get-Volume | where DriveLetter -eq $let | Get-Partition | Get-Disk
+            $dsk = Get-Volume | where DriveLetter -eq $let | Get-Partition | Get-Disk
             Write-Output "Disk: $($dsk.Number):$let"
         }
 
@@ -34,5 +34,5 @@ foreach($sec in $sessions){
   
 }
 
-$result| Out-File -FilePath ".\ldevVM.txt" -Force
+$result | Out-File -FilePath ".\ldevVM.txt" -Force
 Get-PSSession | Disconnect-PSSession | Remove-PSSession

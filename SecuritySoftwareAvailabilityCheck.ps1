@@ -17,10 +17,19 @@ function InstallChecker {
      
         
         $result += Invoke-Command -Session $sec -ScriptBlock {
-                     
-            $data = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Where-Object { $_.DisplayName -match "Universal*|CrowdStrike*|Nessus*" } | Select-Object DisplayName, DisplayVersion, InstallDate, $env:COMPUTERNAME | FT -AutoSize    
-            $data
+
+
+            $hostname = (Get-ComputerInfo -Property CsName).CsName
+
+            Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | 
+            Where-Object { $_.DisplayName -match "Universal*|CrowdStrike*|Nessus*" } | 
+            Select-Object @{Name = "DisplayName"; Expression = { $_.DisplayName } },
+            @{Name = "DisplayVersion"; Expression = { $_.DisplayVersion } },
+            @{Name = "InstallDate"; Expression = { $_.InstallDate } },
+            @{Name = "ServerName"; Expression = { $hostname } }
          
+          
+          
         }      
         
     }
