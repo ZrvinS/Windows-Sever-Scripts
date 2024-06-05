@@ -19,7 +19,7 @@ foreach ($Server in $servers) {
             $clusterNodes = Invoke-Command -Session $session -ScriptBlock {
                 $cluster = Get-ClusterNode | select -ExpandProperty Name
                 $ClusterNodes = @()
-                
+
                 if ($cluster.Count -ge 3) {
                     $ClusterNodes += [PSCustomObject]@{
                         ServerName   = $env:COMPUTERNAME
@@ -32,14 +32,14 @@ foreach ($Server in $servers) {
                 else {
                     $ClusterNodes += [PSCustomObject]@{
                         ServerName   = $env:COMPUTERNAME
-                        ClusterNode1 = $cluster.Count -ge 1 | ? $cluster[0] : $null
-                        ClusterNode2 = $cluster.Count -ge 2 | ? $cluster[1] : $null
-                        ClusterNode3 = $cluster.Count -ge 3 | ? $cluster[2] : $null
+                        ClusterNode1 = if ($cluster.Count -ge 1) { $cluster[0] } else { $null }
+                        ClusterNode2 = if ($cluster.Count -ge 2) { $cluster[1] } else { $null }
+                        ClusterNode3 = if ($cluster.Count -ge 3) { $cluster[2] } else { $null }
                         IsThreeNode  = $false
                     }
                 }
-                
-                return $ClusterNodes  
+
+                return $ClusterNodes
             } -ErrorAction SilentlyContinue
 
             $results += $clusterNodes
@@ -56,6 +56,6 @@ foreach ($Server in $servers) {
 }
 
 # Export results to a file
-$results | Export-Csv -Path ".\ClusterNodesReport.csv" -NoTypeInformation -Force
+$results | Export-Csv -Path ".\ClusterNodesReport.csv" -Force -NoTypeInformation
 
 Write-Output "Cluster nodes report has been exported to ClusterNodesReport.csv"
