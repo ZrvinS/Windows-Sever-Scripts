@@ -1,13 +1,15 @@
 $servers = Get-Content -Path ".\Servers.txt"
-$result =@()
-foreach($server in $servers){
+$result = @()
+$result = foreach($server in $servers){
 
-  $result += Invoke-Command -ComputerName $server -ScriptBlock {
+  Invoke-Command -ComputerName $server -ScriptBlock {
         
-        $result = Get-ClusterGroup | select Name, Ownernode, status
+        $resultinter = Get-ClusterGroup | select Name, Ownernode, status
         
-        $ownerNode = $result | select -ExcludeProperty Onwernode
-        $ownerNode | select -Unique ownernode       
+        $ownerNode = $resultinter | select -ExcludeProperty Onwernode
+        $ownerNode | select -Unique ownernode        
 
-    }
+    } 
+    
 }
+ $result | Out-File -FilePath "ClusterNodeResult.txt" -Force
