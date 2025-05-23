@@ -4,17 +4,18 @@ foreach ($server in $servers){
 
     Invoke-Command -ComputerName $server -ScriptBlock {
     
-    $sourceApp = "\\lnk-fs99\install\Qualys Agent\Qualys Agent 6.1\*"
-$destinationpath = "C:\Tmp" 
+    $sourceApp = "\\lnk-fs99\install\Qualys Agent\Qualys Agent 6.1\"
+       $destinationpath = "C:\Temp" 
 if (-Not (Test-Path $destinationpath)){
     New-Item -Path $destinationpath -ItemType Directory | Out-Null 
     Write-Host "Temp created"
 }
 Write-Host "Finding App..."
 $app = Get-WmiObject Win32_Product | ? {$_.Name -like "Qualys*"}
-Write-Host "App Found" $app.Name
-Write-Host "UnInstalling App"
+
 if($app){
+    Write-Host "App Found" $app.Name
+    Write-Host "UnInstalling App"
     $app.Uninstall()
     Write-Host "Uninstall Completed"
 }
