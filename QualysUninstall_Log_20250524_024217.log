@@ -1,0 +1,40 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20250524024217
+Username: ZRVIN\zrvin
+RunAs User: ZRVIN\zrvin
+Configuration Name: 
+Machine: ZRVIN (Microsoft Windows NT 10.0.22631.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command Import-Module 'c:\Users\zrvin\.vscode\extensions\ms-vscode.powershell-2025.0.0\modules\PowerShellEditorServices\PowerShellEditorServices.psd1'; Start-EditorServices -HostName 'Visual Studio Code Host' -HostProfileId 'Microsoft.VSCode' -HostVersion '2025.0.0' -BundledModulesPath 'c:\Users\zrvin\.vscode\extensions\ms-vscode.powershell-2025.0.0\modules' -EnableConsoleRepl -StartupBanner "PowerShell Extension v2025.0.0
+Copyright (c) Microsoft Corporation.
+
+https://aka.ms/vscode-powershell
+Type 'help' to get help.
+" -LogLevel 'Warning' -LogPath 'c:\Users\zrvin\AppData\Roaming\Code\logs\20250524T022720\window2\exthost\ms-vscode.powershell' -SessionDetailsPath 'c:\Users\zrvin\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\sessions\PSES-VSCode-11396-999941.json' -FeatureFlags @() 
+Process ID: 12388
+PSVersion: 5.1.22621.4391
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22621.4391
+BuildVersion: 10.0.22621.4391
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is .\QualysUninstall_Log_20250524_024217.log
+C:\Users\zrvin\Documents\PowerShellScript\Windows-Sever-Scripts\QualysUninstall.ps1 : Server list file '.\servers.txt' 
+not found.
+At line:1 char:1
++ . 'C:\Users\zrvin\Documents\PowerShellScript\Windows-Sever-Scripts\Qu ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,QualysUninstall.ps1
+C:\Users\zrvin\Documents\PowerShellScript\Windows-Sever-Scripts\QualysUninstall.ps1 : Server list file '.\servers.txt' not found.
+At line:1 char:1
++ . 'C:\Users\zrvin\Documents\PowerShellScript\Windows-Sever-Scripts\Qu ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
+    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,QualysUninstall.ps1
+
+(base)
+]633;D;1]633;A]633;P;Cwd=C:\x5cUsers\x5czrvin\x5cDocuments\x5cPowerShellScript\x5cWindows-Sever-ScriptsPS C:\Users\zrvin\Documents\PowerShellScript\Windows-Sever-Scripts> ]633;B

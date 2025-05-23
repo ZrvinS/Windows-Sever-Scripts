@@ -196,7 +196,7 @@ Invoke-Command -ComputerName $servers -ArgumentList $config -ScriptBlock {
             }
         }
         catch {
-            Write-Error "[$($env:COMPUTERNAME)] Error creating temp directory $destinationpath: $($_.Exception.Message)"
+            Write-Error "[$($env:COMPUTERNAME)] Error creating temp directory $destinationpath : $($_.Exception.Message)"
             return $false
         }
 
@@ -320,7 +320,7 @@ if ($results) {
         Write-Host "`nFailed Servers ($($failedServers.Count)):" -ForegroundColor Red
         $failedServers | ForEach-Object {
             $serverIdentifier = if ($_.PSComputerName) { $_.PSComputerName } else { $_.ComputerName } # Use PSComputerName if available, else our ComputerName
-            Write-Host "- $serverIdentifier: $($_.Message)" -ForegroundColor Red
+            Write-Host "- $serverIdentifier : $($_.Message)" -ForegroundColor Red
             Write-Host "  Qualys Uninstalled: $($_.QualysUninstalled), Qualys Installed: $($_.QualysInstalled)"
         }
     }
