@@ -22,7 +22,7 @@ else {
 
 Set-Location -Path $destinationpath
 
-& .\QualysCloudAgent.exe "CustomerId={a25f9287-d937-6cd2-81dd-de9162c0212c}" "ActivationId={d4a1144e-c60a-4c4b-98e9-00910fce11e6}" "WebServiceUri=https://qagpublic.qg1.apps.qualys.eu/CloudAgent/"
+& .\QualysCloudAgent.exe "CustomerId={**}" "ActivationId={**}" "WebServiceUri=https://**/"
 
 
  Write-Host "Qualys Agent Installation Completed"
