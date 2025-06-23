@@ -36,7 +36,7 @@ function InstallChecker {
 
      
      
-    $result | ft -AutoSize | Out-File -FilePath ".\InstalledSoftware.txt" -Force
+    $result | Format-Table -AutoSize | Out-File -FilePath ".\InstalledSoftware.txt" -Force
     Get-PSSession | Disconnect-PSSession | Remove-PSSession
 }  
 InstallChecker
