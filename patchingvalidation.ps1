@@ -1,4 +1,4 @@
-$serverlist = Get-Content -Path ".\servers.txt"
+$serverlist = Get-Content -Path "C:\temp\servers.txt"
 $result = @();
 $result += Invoke-Command -ComputerName $serverlist -ScriptBlock {
 
