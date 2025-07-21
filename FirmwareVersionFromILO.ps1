@@ -2,7 +2,7 @@ cd C:\Users\it0777su\Documents
 Import-Module "C:\Program Files\WindowsPowerShell\Modules\hpeilocmdlets.4.4.0\HPEiLOCmdlets.psd1"
 $ilolist = Get-Content -Path ".\ilolist.txt"
 $ilouser = "Admin"
-$ilopassword = ""
+$ilopassword = "HPAdmin@10001"
 $result = @()
 $result += foreach ($ilo in $ilolist){
     $iloconnection = Connect-HPEiLO -Address $ilo -Username $ilouser -Password $ilopassword -DisableCertificateAuthentication
@@ -13,5 +13,5 @@ $result += foreach ($ilo in $ilolist){
 
 }
 
-$result | Out-File -FilePath "./iloriskresult2.txt" -force
+$result | Out-File -FilePath "./iloFirmareVersion.txt" -force
 

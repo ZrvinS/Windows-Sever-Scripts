@@ -1,4 +1,4 @@
-$server = Get-Content -Path "C:\Users\it0777su\Documents\servers.txt"
+$server = Get-Content -Path "C:\Temp\servers.txt"
 
 foreach($serv in $server){
 
