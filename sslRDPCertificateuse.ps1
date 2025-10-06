@@ -1,0 +1,2 @@
+$test = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" | select SSLCertificateSHA1Hash
+($test.SSLCertificateSHA1Hash | ForEach-Object {$_.ToString("x2")}) -join ""

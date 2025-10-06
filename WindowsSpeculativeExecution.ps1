@@ -11,4 +11,3 @@ New-ItemProperty -Path $regpath -Name "FeatureSettingsOverride" -PropertyType DW
 
 }
 }
-
