@@ -1,0 +1,98 @@
+function InstallChecker {
+
+    $serverList = Get-Content "./servers.txt"
+    $softwareList = @("Universal*", "Nessus Agent", "CrowdStrike", "HP Agent", "Opsware")
+
+    $reachableServers = @()
+    $unreachableServers = @()
+
+    Write-Host "Checking connectivity..."
+
+    foreach ($server in $serverList) {
+        if (Test-Connection -ComputerName $server -Count 1 -Quiet) {
+            $reachableServers += $server
+        } else {
+            $unreachableServers += $server
+        }
+    }
+
+    Write-Host "$($reachableServers.Count) servers reachable"
+    Write-Host "$($unreachableServers.Count) servers unreachable"
+
+    # 🔥 MAIN EXECUTION (Parallel with throttle)
+    $results = Invoke-Command -ComputerName $reachableServers `
+        -ThrottleLimit 50 `
+        -AsJob `
+        -ScriptBlock {
+
+            param($softwareList)
+
+            $hostname = $env:COMPUTERNAME
+            $softwareResults = @()
+
+            # Check both 64-bit + 32-bit uninstall paths
+            $paths = @(
+                "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*",
+                "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+            )
+
+            $installed = foreach ($path in $paths) {
+                Get-ItemProperty $path -ErrorAction SilentlyContinue
+            }
+
+            foreach ($software in $softwareList) {
+
+                $matches = $installed | Where-Object {
+                    $_.DisplayName -and $_.DisplayName -like $software
+                }
+
+                if (-not $matches) {
+                    [PSCustomObject]@{
+                        ServerName     = $hostname
+                        Software       = $software
+                        Status         = "Not Installed"
+                        Version        = "N/A"
+                        InstallDate    = "N/A"
+                    }
+                }
+                else {
+                    foreach ($m in $matches) {
+                        [PSCustomObject]@{
+                            ServerName     = $hostname
+                            Software       = $m.DisplayName
+                            Status         = "Installed"
+                            Version        = $m.DisplayVersion
+                            InstallDate    = $m.InstallDate
+                        }
+                    }
+                }
+            }
+
+        } -ArgumentList $softwareList
+
+    # 🔄 Wait and collect results
+    Write-Host "Running checks in parallel..."
+    $finalResults = Receive-Job -Job $results -Wait -AutoRemoveJob
+
+    # 📁 Save results
+    if ($finalResults) {
+        $finalResults | Export-Csv ".\InstalledSoftware.csv" -NoTypeInformation
+        Write-Host "Results saved to InstalledSoftware.csv"
+    } else {
+        Write-Host "No results found"
+    }
+
+    # ❌ Log unreachable servers
+    if ($unreachableServers) {
+        $unreachableServers | ForEach-Object {
+            [PSCustomObject]@{
+                ServerName = $_
+                Status     = "Unreachable"
+            }
+        } | Export-Csv ".\UnreachableServers.csv" -NoTypeInformation
+
+        Write-Host "Unreachable servers saved"
+    }
+}
+
+InstallChecker
